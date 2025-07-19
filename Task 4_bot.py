@@ -39,11 +39,8 @@ def change_contact(args, contacts):  # Змінюємо номер телефо�
 def show_phone(args, contacts):
 
     name, = args
+    return f"{name}: {contacts[name]}"
 
-    if name in contacts:
-        return f"{name}: {contacts[name]}"
-    else:
-        return f"Contact {name} not found."
 
 def show_all(contacts): #виводимо всі збережені контакти
     if contacts:
