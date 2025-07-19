@@ -11,6 +11,7 @@ def input_error(func): # декоратор для обробки помилок
 
     return inner
 
+@input_error
 def parse_input(user_input):
     cmd, *args = user_input.split() # Розбиваємо введений рядок на команду та аргументи
     cmd = cmd.strip().lower() #видаляємо пробіли та робимо нижній регістр
@@ -18,8 +19,7 @@ def parse_input(user_input):
 
 @input_error
 def add_contact(args, contacts): # Додаємо новий контакт у словник
-    if len(args) != 2:
-        return "add <name> <phone>"
+
     name, phone = args
     contacts[name] = phone
     return "Contact added"
@@ -27,12 +27,7 @@ def add_contact(args, contacts): # Додаємо новий контакт у �
 @input_error
 def change_contact(args, contacts):  # Змінюємо номер телефону для наявного контакту
 
-    if len(args) != 2:
-        return "Check the correctness of the entered data."
-
-    name = args[0]
-    new_phone = args[1]
-
+    name, new_phone = args
     if name in contacts:
         old_phone = contacts[name] # Зберігаємо старий номер
         contacts[name] = new_phone # Оновлюємо старий номер на новий
@@ -42,10 +37,8 @@ def change_contact(args, contacts):  # Змінюємо номер телефо�
 
 @input_error
 def show_phone(args, contacts):
-    if len(args) != 1: # Показуємо номер телефону за ім'ям
-        return f"Usage: phone <name>"
 
-    name = args[0]
+    name, = args
 
     if name in contacts:
         return f"{name}: {contacts[name]}"
